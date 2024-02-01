@@ -3,11 +3,11 @@ namespace App\Controllers;
 
 use App\Models\DatabaseModel;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
 use Exception;
 
-require "vendor/autoload.php";
-
-class ToDoListController{
+class TodolistController{
     private $server;
     private $database;
     private $username;
@@ -41,7 +41,7 @@ class ToDoListController{
     
         try {
             $this->connection->get_connection()->exec($query);
-            echo "Tasks' table successfully created.";
+            // echo "Tasks' table successfully created.";
         } catch (\PDOException $e) {
             throw new \PDOException("Error creating the 'tasks' table: " . $e->getMessage());
         }

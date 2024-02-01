@@ -1,3 +1,13 @@
+<?php
+
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../app/Controllers/TodolistController.php';
+use App\Controllers\TodolistController;
+$todolist = new TodolistController();
+$todolist->createTable();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,3 +50,4 @@
 </body>
 
 </html>
+
