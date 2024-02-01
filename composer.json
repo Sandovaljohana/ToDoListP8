@@ -1,0 +1,19 @@
+{
+    "name": "vendor/todolistproject8",
+    "description": "app to follow tasks",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sandovaljohana",
+            "email": "sandovaljohana0207@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\": "database/"
+        }
+    },
+    "require": {}
+}
