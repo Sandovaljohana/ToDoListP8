@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDoList</title>
-</head>
-<body>
-    
-</body>
-</html>
+<?php
+require_once '../vendor/autoload.php';
+require_once '../app/Config/config.php';
+
+use App\Controllers\ToDoListController;
+
+$controller = new ToDoListController();
+
+// Manejar las rutas
+$uri = $_SERVER['REQUEST_URI'];
+switch ($uri) {
+    case '/add':
+        $controller->add();
+        break;
+    case preg_match('/\/delete\/(\d+)/', $uri, $matches) ? true : false:
+        $controller->delete($matches[1]);
+        break;
+    default:
+        $controller->showAll();
+        break;
+}

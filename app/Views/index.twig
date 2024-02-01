@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <form action="/add" method="post">
+        <label for="newTask">Nueva Tarea:</label>
+        <input type="text" id="newTask" name="newTask" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h2>Lista de Tareas:</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.task }}
+                <form action="/delete/{{ task.id }}" method="post" style="display: inline;">
+                    <button type="submit">Borrar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

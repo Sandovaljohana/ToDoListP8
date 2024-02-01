@@ -1,0 +1,22 @@
+{
+    "name": "vendor/to-do-list-p8",
+    "description": "Task tracking app",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Database\\": "database/",
+            "App\\": "app/",
+            "Vendor\\Todolist\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sandovaljohana",
+            "email": "sandovaljohana0207@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.8"
+    }
+}

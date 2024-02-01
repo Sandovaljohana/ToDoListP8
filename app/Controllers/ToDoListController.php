@@ -3,7 +3,8 @@ namespace App\Controllers;
 use Database\PDO\DatabaseConnection;
 use Exception;
 
-require "vendor/autoload.php";
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../Config/config.php';
 
 class ToDoListController{
     private $server;
@@ -11,9 +12,13 @@ class ToDoListController{
     private $username;
     private $password;
     private $connection;
+    private $twig;
 
     public function __construct()
     {
+        global $twig;
+
+        $this -> twig = $twig;
         $this -> server = "localhost";
         $this -> database = "todolist";
         $this -> username = "johana";
@@ -24,7 +29,39 @@ class ToDoListController{
 
        $this -> connection -> connect();
     }
+    public function getTwig()
+{
+    return $this->twig;
+}
 
+
+    public function someMethod()
+    {
+        $twig = $this-> getTwig();
+    }
+
+    public function index()
+    {
+        // Obtener tareas (puedes cargar esto desde tu modelo si es necesario)
+        $tasks = [
+            ['id' => 1, 'task' => 'Completar tarea 1'],
+            ['id' => 2, 'task' => 'Revisar tarea 2'],
+            // ... más tareas ...
+        ];
+
+        // Renderizar la plantilla Twig
+        echo $this->twig->render('index.twig', ['tasks' => $tasks]);
+    }
+
+    public function add()
+    {
+        // Lógica para agregar nueva tarea
+        // ...
+
+        // Redirigir a la página principal después de agregar
+        header("Location: /");
+        exit;
+    }
 
      public function create(){
         $query = "CREATE TABLE `tasks` (
@@ -49,6 +86,7 @@ class ToDoListController{
 
         }
 
+
    public function store($data){
     $query = "INSERT INTO tasks (task, stage) VALUES (?, ?)";
     try{
@@ -70,26 +108,46 @@ class ToDoListController{
             $statement = $this->connection->get_connection()->prepare($query);
             $statement->execute([$id]);
             $result = $statement->fetch(\PDO::FETCH_ASSOC);
-            var_dump($result);
-            return $result;
+            echo $this->twig->render('todolist.twig', ['task' => $result]);
         } catch (Exception $e) {
             echo "An error occurred while displaying the task, please try again.";
         }
     }
-    public function delete($id){
+
+    public function showAll()
+    {
+        // Obtener todas las tareas (puedes cargar esto desde tu modelo si es necesario)
+        $tasks = [
+            ['id' => 1, 'task' => 'Completar tarea 1'],
+            ['id' => 2, 'task' => 'Revisar tarea 2'],
+            // ... más tareas ...
+        ];
+    
+        // Renderizar la plantilla Twig
+        echo $this->twig->render('index.twig', ['tasks' => $tasks]);
+    }
+    
+
+    public function delete($id)
+    {
+        // Lógica para borrar tarea por ID
         $query = "DELETE FROM tasks WHERE id = ?";
         try {
             $statement = $this->connection->get_connection()->prepare($query);
             $results = $statement->execute([$id]);
-            if(!empty($results)){
-                $response = "Task with ID  {$id} has been deleted successfully";
-                var_dump($response);
-                return [$results, $response];
+            if (!empty($results)) {
+                $response = "Task with ID {$id} has been deleted successfully";
+                // Puedes agregar mensajes flash u otras lógicas aquí
             }
         } catch (Exception $e) {
-            echo "An error occurred while deleting the task, please try again.";
+            $response = "An error occurred while deleting the task, please try again.";
         }
+    
+        // Redirigir a la página principal después de borrar
+        header("Location: /");
+        exit;
     }
+    
 }
 
 
