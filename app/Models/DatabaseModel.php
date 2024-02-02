@@ -4,16 +4,16 @@ namespace App\Models;
 
 class DatabaseModel
 {
-    private $host;
-    private $dbname;
+    private $server;
+    private $database;
     private $username;
     private $password;
     private $connection;
 
-    public function __construct($host, $dbname, $username, $password)
+    public function __construct($server, $database, $username, $password)
     {
-        $this->host = $host;
-        $this->dbname = $dbname;
+        $this->server = $server;
+        $this->database = $database;
         $this->username = $username;
         $this->password = $password;
     }
@@ -21,7 +21,7 @@ class DatabaseModel
     public function connect()
     {
         try {
-            $this->connection = new \PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
+            $this->connection = new \PDO("mysql:server={$this->server};database={$this->database}", $this->username, $this->password);
             $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return $this->connection;
         } catch (\PDOException $e) {
@@ -34,5 +34,6 @@ class DatabaseModel
     public function get_connection(){
         return $this-> connection;
     }
+
 
 }
