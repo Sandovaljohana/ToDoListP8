@@ -26,7 +26,6 @@ class DatabaseConnection{
         }catch(\PDOException $e){
             echo "the database connection failed:".$e->getMessage();
         }
-        var_dump($this->connection);
 
     }
     
