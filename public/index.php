@@ -8,6 +8,7 @@ $toDoListController = new ToDoListController();
 $results = $toDoListController->getTasks();
 $toDoListController->addTask();
 
+
 ?>
 
 <!DOCTYPE html>
@@ -33,26 +34,15 @@ $toDoListController->addTask();
             <div>
                 <h2 class="p-4 font-bold font-sans text-red-500 text-xl">Tasks:</h2>
                 <div>
-                    <form id="taskForm" method="POST" class="flex flex-col items-center justify-between h-full">
+                    <form id="taskForm" action="index.php" method="POST" class="flex flex-col items-center justify-between h-full">
 
 
                         <input id="title" class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" name="title" placeholder="title">
 
-                        <input 
-                        class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" 
-                        type="text" 
-                        id="task" 
-                        name="task"
-                        placeholder="Insert task"
-                        aria-describedby="helpId">
-                        
-                        <input 
-                        class="cursor-pointer text-red-300 p-2 bg-red-800 rounded-lg text-white self-end mr-4" 
-                        name="addTask"
-                        id="addTask"
-                        type="submit"
-                        value="addTask"
-                        >
+                        <input class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" id="task" name="task" placeholder="Insert task" aria-describedby="helpId">
+
+                        <input class="cursor-pointer text-red-300 p-2 bg-red-800 rounded-lg text-white self-end mr-4" name="addTask" id="addTask" type="submit" value="addTask">
+
 
                     </form>
                 </div>
@@ -60,14 +50,23 @@ $toDoListController->addTask();
                 <div class="m-10">
                     <ul>
                         <?php
-                        foreach($results as $result) { ?>
-                        <li>
-                            <input type="checkbox" id="task" name="task" class="mr-2">
-                            <label for="task" class="text-gray-800"><?php echo $result['task']; ?></label>
-                            <button class="ml-4">
-                            <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </li>
+                        foreach ($results as $result) { ?>
+                            <li>
+                                <input type="checkbox" id="task" name="task" class="mr-2">
+
+                                <label for="task" class="text-gray-800"><?php echo $result['task']; ?></label>
+
+                                <button class="ml-4" onclick="editTask(<?php echo $result['id']; ?>)">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </button>
+
+                                <button class="ml-4">
+                                    <a href="?id=<?php echo $result['id']; ?>">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </button>
+
+                            </li>
                         <?php } ?>
                     </ul>
 
@@ -88,4 +87,3 @@ $toDoListController->addTask();
 </body>
 
 </html>
-

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\PDO\DatabaseConnection;
+
 class AddTaskModel
 {
     private $connection;
@@ -19,12 +20,15 @@ class AddTaskModel
             $sql = "INSERT INTO tasks (title, task) VALUES (?, ?)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$title, $task]);
-            return $pdo->lastInsertId();
+            
+            if ($stmt->rowCount() > 0) {
+                return $pdo->lastInsertId();
+            } else {
+                return false;
+            }
         } catch (\PDOException $e) {
-            echo "Error al agregar tarea: " . $e->getMessage();
+            echo "Error adding task: " . $e->getMessage();
             return false;
         }
     }
 }
-
-
