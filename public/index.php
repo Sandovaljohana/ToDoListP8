@@ -24,52 +24,43 @@ $toDoListController->addTask();
 
 <body>
     <header>
-        <h1 class="flex justify-center p-8 font-bold font-sans text-red-500 text-4xl">To Do List</h1>
+        <h1 class="flex justify-center p-8 font-bold font-sans text-blue-500 text-4xl">To Do List</h1>
     </header>
 
 
     <main class="flex flex-row justify-center">
 
-        <div class="flex flex-col w-96 bg-red-100 rounded-lg h-auto py-8">
+        <div class="flex flex-col w-96 bg-blue-100 rounded-lg h-auto py-8 mb-10">
             <div>
-                <h2 class="p-4 font-bold font-sans text-red-500 text-xl">Tasks:</h2>
+                <h2 class="p-4 font-bold font-sans text-blue-500 text-xl">Tasks:</h2>
                 <div>
-                    <form id="taskForm" action="index.php" method="POST" class="flex flex-col items-center justify-between h-full">
+                    <form id="taskForm" action="" method="POST" class="flex flex-col items-center justify-between h-full">
+
+                        <input class="mb-4 p-2 bg-blue-200 rounded-sm w-11/12" type="text" name="title" id="title" placeholder="Title">
 
 
-                        <input id="title" class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" name="title" placeholder="title">
+                        <input class="mb-4 p-2 bg-blue-200 rounded-sm w-11/12" type="text" id="task" name="task" placeholder="Insert task" aria-describedby="helpId">
 
-                        <input class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" id="task" name="task" placeholder="Insert task" aria-describedby="helpId">
-
-                        <input class="cursor-pointer text-red-300 p-2 bg-red-800 rounded-lg text-white self-end mr-4" name="addTask" id="addTask" type="submit" value="addTask">
-
-
+                        <input class="cursor-pointer text-white p-2 bg-blue-800 rounded-lg text-white self-end mr-4" name="addTask" id="addTask" type="submit" value="Add">
                     </form>
                 </div>
 
-                <div class="m-10">
-                    <ul>
+                <div class="m-10 ">
+                <ul>
                         <?php
                         foreach ($results as $result) { ?>
-                            <li>
+                            <li  class="bg-blue-200 m-2 p-2 rounded">
                                 <input type="checkbox" id="task" name="task" class="mr-2">
-
+                                <label for="title" class="text-gray-800"><?php echo $result['title']; ?></label>
+                                <br>
                                 <label for="task" class="text-gray-800"><?php echo $result['task']; ?></label>
-
-                                <button class="ml-4" onclick="editTask(<?php echo $result['id']; ?>)">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </button>
-
-                                <button class="ml-4">
-                                    <a href="?id=<?php echo $result['id']; ?>">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-
+                                <a href=""><span><i class="fa-solid fa-pencil"></i></span></a>
+                                <a href="?id=<?php echo $result['id']; ?>">
+                                   <span><i class="fa-solid fa-trash"></i></span> 
+                                </a>
                             </li>
                         <?php } ?>
                     </ul>
-
 
                 </div>
 
