@@ -9,10 +9,6 @@ use App\Models\DeleteTaskModel;
 
 class ToDoListController
 {
-    private $server;
-    private $database;
-    private $username;
-    private $password;
     private $connection;
     private $showTaskModel;
     private $addTaskModel;
@@ -20,18 +16,10 @@ class ToDoListController
 
     public function __construct()
     {
-        $this->server = "localhost";
-        $this->database = "todolist";
-        $this->username = "johana";
-        $this->password = "johana";
+        $config = include(__DIR__ . '../../../Config/config.php');
+        $databaseConfig = $config['database'] ?? [];
 
-        $this->connection = new DatabaseConnection(
-            $this->server,
-            $this->database,
-            $this->username,
-            $this->password
-        );
-
+        $this->connection = new DatabaseConnection($databaseConfig);
         $this->connection->connect();
 
         $this->showTaskModel = new ShowTaskModel($this->connection);

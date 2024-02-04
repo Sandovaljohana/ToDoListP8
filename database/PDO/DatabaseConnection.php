@@ -1,36 +1,37 @@
 <?php
 
-namespace Database\PDO; 
+namespace Database\PDO;
 
-class DatabaseConnection{
+class DatabaseConnection
+{
     private $server;
     private $database;
     private $username;
     private $password;
-    private $connection;
+    private $connection; // Agregamos esta línea
 
-    public function __construct($server, $database, $username, $password) {
-        $this->server = $server;
-        $this->database = $database;
-        $this->username = $username;
-        $this->password = $password;
-        
+    public function __construct($config)
+    {
+        $this->server = $config['server'];
+        $this->database = $config['database'];
+        $this->username = $config['username'];
+        $this->password = $config['password'];
     }
 
-    public function connect() {
+    public function connect()
+    {
         try {
-            $this->connection = new \PDO("mysql:host=$this->server;dbname=$this->database",
-                                        $this->username, $this->password);
-            $setNames = $this->connection -> prepare("SET NAMES 'utf8'");
-            $setNames -> execute();
-        }catch(\PDOException $e){
-            echo "the database connection failed:".$e->getMessage();
+            $this->connection = new \PDO("mysql:host=$this->server;dbname=$this->database", $this->username, $this->password);
+            $setNames = $this->connection->prepare("SET NAMES 'utf8'");
+            $setNames->execute();
+        } catch (\PDOException $e) {
+            echo "the database connection failed:" . $e->getMessage();
         }
-
     }
-    
-    public function get_connection(){
-        return $this-> connection;
+
+    public function get_connection()
+    {
+        return $this->connection;
     }
 }
 ?>
