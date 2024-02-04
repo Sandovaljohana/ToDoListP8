@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Database\PDO\DatabaseConnection;
@@ -20,7 +19,7 @@ class AddTaskModel
             $sql = "INSERT INTO tasks (title, task) VALUES (?, ?)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$title, $task]);
-            
+
             if ($stmt->rowCount() > 0) {
                 return $pdo->lastInsertId();
             } else {
@@ -32,3 +31,4 @@ class AddTaskModel
         }
     }
 }
+?>
