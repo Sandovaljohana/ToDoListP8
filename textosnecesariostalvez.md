@@ -21,3 +21,16 @@
                             </li>
                         <?php } ?>
                     </ul>
+
+
+
+
+                    FORM CORRECTO: <form id="taskForm" action="" method="POST" class="flex flex-col items-center justify-between h-full">
+
+                        <input class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" name="title" id="title" placeholder="title">
+
+
+                        <input class="mb-4 p-2 bg-red-200 rounded-sm w-11/12" type="text" id="task" name="task" placeholder="Insert task" aria-describedby="helpId">
+
+                        <input class="cursor-pointer text-red-300 p-2 bg-red-800 rounded-lg text-white self-end mr-4" name="addTask" id="addTask" type="submit" value="addTask">
+                    </form>
