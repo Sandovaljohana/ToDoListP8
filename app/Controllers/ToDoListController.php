@@ -57,22 +57,24 @@ class ToDoListController
         // Puedes pasar las tareas a la vista o realizar otras operaciones
     }
 
-    public function deleteTask() {
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $success = $this->deleteTaskModel->deleteTaskById($id);
-
-            // Realizar otras acciones según el éxito o fracaso de la eliminación
-            if ($success) {
-                // Éxito: recargar la página o redirigir según tu lógica
-                header("Location: index.php");
-                exit();
-            } else {
-                // Fracaso: manejar el error
-                echo "Error al intentar eliminar la tarea.";
+    public function deleteTask()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteTask'])) {
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                $success = $this->deleteTaskModel->deleteTaskById($id);
+    
+                // Realizar otras acciones según el éxito o fracaso de la eliminación
+                if ($success) {
+                    // Éxito: recargar la página o redirigir según tu lógica
+                    header("Location: index.php");
+                    exit();
+                } else {
+                    // Fracaso: manejar el error
+                    echo "Error al intentar eliminar la tarea.";
+                }
             }
         }
-    }
-
-    
+    }   
 }
+?>

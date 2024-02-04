@@ -5,9 +5,12 @@ require __DIR__ . '../../vendor/autoload.php';
 use App\Controllers\ToDoListController;
 
 $toDoListController = new ToDoListController();
+
+// Llama al método deleteTask para manejar la eliminación
+$toDoListController->deleteTask();
+
 $results = $toDoListController->getTasks();
 $toDoListController->addTask();
-
 
 ?>
 
@@ -46,18 +49,20 @@ $toDoListController->addTask();
                 </div>
 
                 <div class="m-10 ">
-                <ul>
-                        <?php
-                        foreach ($results as $result) { ?>
-                            <li  class="bg-blue-200 m-2 p-2 rounded">
+                    <ul><?php foreach ($results as $result) { ?>
+                            <li class="bg-blue-200 m-2 p-2 rounded">
                                 <input type="checkbox" id="task" name="task" class="mr-2">
                                 <label for="title" class="text-gray-800"><?php echo $result['title']; ?></label>
                                 <br>
                                 <label for="task" class="text-gray-800"><?php echo $result['task']; ?></label>
                                 <a href=""><span><i class="fa-solid fa-pencil"></i></span></a>
-                                <a href="?id=<?php echo $result['id']; ?>">
-                                   <span><i class="fa-solid fa-trash"></i></span> 
-                                </a>
+                                <form style="display: inline;" method="POST" action="index.php">
+                                    <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+                                    <input type="hidden" name="deleteTask" value="true">
+                                    <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                        <span><i class="fa-solid fa-trash"></i></span>
+                                    </button>
+                                </form>
                             </li>
                         <?php } ?>
                     </ul>
