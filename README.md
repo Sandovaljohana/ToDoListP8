@@ -7,6 +7,9 @@ ToDoList App es una aplicación de lista de tareas simple desarrollada en PHP qu
 ## Interfaz gráfica
 ![Interfaz gráfica](/projectview.png)
 
+## [Presentación en canva](https://www.canva.com/design/DAF74o-9OWc/uUF9bli0YYxaqK8_TaGzDQ/view?utm_content=DAF74o-9OWc&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
+
 ## Características
 
 - **Agregar Tareas**: Añade nuevas tareas a tu lista.
