@@ -16,15 +16,14 @@ class EditTaskModel
     public function editTask()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
-            $taskId = $_POST['id']; // Obtén el ID de $_POST, no de $_GET
+            $taskId = $_POST['id']; 
             $editedTask = $_POST['task'];
 
-            // Obtén la tarea existente para verificar si existe
             $showTaskModel = new ShowTaskModel($this->connection);
             $existingTask = $showTaskModel->getTaskById($taskId);
 
             if ($existingTask) {
-                // Utiliza el propio modelo para editar la tarea
+              
                 $success = $this->editTaskById($taskId, $editedTask);
 
                 if ($success) {
@@ -39,24 +38,21 @@ class EditTaskModel
         }
     }
 
-    // Este método recibe un ID y una nueva tarea para editar en la base de datos
     private function editTaskById($id, $newTask)
     {
         try {
-            // Obtén la conexión a la base de datos
+           
             $pdo = $this->connection->get_connection();
 
-            // Prepara la consulta SQL para actualizar la tarea
             $sql = "UPDATE tasks SET task = ? WHERE id = ?";
             $stmt = $pdo->prepare($sql);
 
-            // Ejecuta la consulta con los nuevos datos de la tarea
             $stmt->execute([$newTask, $id]);
 
-            return true; // La actualización fue exitosa
+            return true; 
         } catch (\PDOException $e) {
-            // Maneja el error según tus necesidades
-            return false; // La actualización falló
+           
+            return false; 
         }
     }
 
@@ -70,12 +66,11 @@ class EditTaskModel
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$complete, $id]);
 
-        return true; // Éxito
+        return true; 
     } catch (\PDOException $e) {
-        return false; // Fracaso
-    }
+        return false; 
 }
 
 }
-
+}
 ?>

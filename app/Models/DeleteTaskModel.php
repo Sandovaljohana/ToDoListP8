@@ -21,12 +21,11 @@ class DeleteTaskModel {
            
  
     private function getTaskById($id) {
-        // Obtener la tarea por ID
+      
         $sql = "SELECT * FROM tasks WHERE id = ?";
         $stmt = $this->pdo->get_connection()->prepare($sql);
         $stmt->execute([$id]);
 
-        // Devolver la tarea o null si no se encuentra
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

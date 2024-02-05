@@ -37,7 +37,7 @@ class ToDoListController
 
     public function getTasks()
     {
-        // Obtener todas las tareas
+       
         $tasks = $this->showTaskModel->getTasks();
 
         return $tasks;
@@ -46,23 +46,23 @@ class ToDoListController
 
     public function addTask()
     {
-        // Verificar si se ha enviado el formulario para agregar tarea
+       
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addTask'])) {
-            // Obtener los datos del formulario
+           
             $title = $_POST['title'];
             $task = $_POST['task'];
     
-            // Llamar al método addTask del modelo correspondiente
+          
             $this->addTaskModel->addTask($title, $task);
     
-            // Redireccionar a la misma página para evitar el reenvío del formulario
+         
             header("Location: index.php");
             exit();
         }
     
-        // Recuperar las tareas y actualizar la vista
+        
         $tasks = $this->showTaskModel->getTasks();
-        // Puedes pasar las tareas a la vista o realizar otras operaciones
+       
     }
 
     public function deleteTask()
@@ -72,13 +72,13 @@ class ToDoListController
                 $id = $_POST['id'];
                 $success = $this->deleteTaskModel->deleteTaskById($id);
     
-                // Realizar otras acciones según el éxito o fracaso de la eliminación
+              
                 if ($success) {
-                    // Éxito: recargar la página o redirigir según tu lógica
+                 
                     header("Location: index.php");
                     exit();
                 } else {
-                    // Fracaso: manejar el error
+                   
                     echo "Error al intentar eliminar la tarea.";
                 }
             }
@@ -91,13 +91,9 @@ class ToDoListController
             if (isset($_POST['id'])) {
                 $id = $_POST['id'];
                 $complete = (isset($_POST['complete'])) ? 1 : 0;
-                
-                // Llamamos al método para actualizar el estado de la tarea
+               
                 $this->editTaskModel->updateTaskStatus($id, $complete);
     
-                // Realizamos otras acciones según sea necesario
-    
-                // Redireccionamos a la misma página o a donde sea necesario
                 header("Location: index.php");
                 exit();
             }

@@ -8,7 +8,7 @@ class DatabaseConnection
     private $database;
     private $username;
     private $password;
-    private $connection; // Agregamos esta línea
+    private $connection; 
 
     public function __construct($config)
     {
