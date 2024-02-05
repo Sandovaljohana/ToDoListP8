@@ -1,18 +1,18 @@
 <?php
 
 require __DIR__ . '../../vendor/autoload.php';
+require __DIR__ . '../../app/Models/EditTaskModel.php';
 
 use App\Controllers\ToDoListController;
 
 $toDoListController = new ToDoListController();
-
-// Llama al método deleteTask para manejar la eliminación
 $toDoListController->deleteTask();
-
 $results = $toDoListController->getTasks();
 $toDoListController->addTask();
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,12 +49,20 @@ $toDoListController->addTask();
                 </div>
 
                 <div class="m-10 ">
-                    <ul><?php foreach ($results as $result) { ?>
+                    <ul>
+                        <?php foreach ($results as $result) { ?>
                             <li class="bg-blue-200 m-2 p-2 rounded">
-                                <input type="checkbox" id="task" name="task" class="mr-2">
+                                <form action="" method="post">
+
+                                    <input type="hidden" name="id" value="<?php echo $result['id'] ;?>" > 
+
+                                    <input name="completed" onChange="this.form.submit()" type="checkbox" value="<?php echo $result['complete'] ; ?>" id="" <?php echo $result['complete'] == 1 ? 'checked' : ''; ?>> </form>
+                                
+                                <span class="<?php echo $result['complete'] == 1 ? 'line-through' : ''; ?>">
                                 <label for="title" class="text-gray-800"><?php echo $result['title']; ?></label>
                                 <br>
                                 <label for="task" class="text-gray-800"><?php echo $result['task']; ?></label>
+                              </span>
                                 <a href=""><span><i class="fa-solid fa-pencil"></i></span></a>
                                 <form style="display: inline;" method="POST" action="index.php">
                                     <input type="hidden" name="id" value="<?php echo $result['id']; ?>">

@@ -6,6 +6,7 @@ use Database\PDO\DatabaseConnection;
 use App\Models\ShowTaskModel;
 use App\Models\AddTaskModel;
 use App\Models\DeleteTaskModel;
+use App\Models\EditTaskModel;
 
 class ToDoListController
 {
@@ -13,6 +14,7 @@ class ToDoListController
     private $showTaskModel;
     private $addTaskModel;
     private $deleteTaskModel;
+    private $editTaskModel;
 
     public function __construct()
     {
@@ -25,6 +27,12 @@ class ToDoListController
         $this->showTaskModel = new ShowTaskModel($this->connection);
         $this->addTaskModel = new AddTaskModel($this->connection);
         $this->deleteTaskModel = new DeleteTaskModel($this->connection);
+        $this->editTaskModel = new EditTaskModel($this->connection);
+    }
+
+    public function get_connection()
+    {
+        return $this->connection;
     }
 
     public function getTasks()
@@ -76,5 +84,26 @@ class ToDoListController
             }
         }
     }   
+    
+    public function updateTaskStatus()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['updateTaskStatus'])) {
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+                $complete = (isset($_POST['complete'])) ? 1 : 0;
+                
+                // Llamamos al método para actualizar el estado de la tarea
+                $this->editTaskModel->updateTaskStatus($id, $complete);
+    
+                // Realizamos otras acciones según sea necesario
+    
+                // Redireccionamos a la misma página o a donde sea necesario
+                header("Location: index.php");
+                exit();
+            }
+        }
+    }
+    
 }
+
 ?>

@@ -13,13 +13,13 @@ class EditTaskModel
         $this->connection = $connection;
     }
 
-   
-        public function editTask()
-        {
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
-                $taskId = $_POST['id']; // Obtén el ID de $_POST, no de $_GET
-                $editedTask = $_POST['task'];
+    public function editTask()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['edit'])) {
+            $taskId = $_POST['id']; // Obtén el ID de $_POST, no de $_GET
+            $editedTask = $_POST['task'];
 
+            // Obtén la tarea existente para verificar si existe
             $showTaskModel = new ShowTaskModel($this->connection);
             $existingTask = $showTaskModel->getTaskById($taskId);
 
@@ -39,33 +39,43 @@ class EditTaskModel
         }
     }
 
-    public function getTaskById($id)
-    {
-        $pdo = $this->connection->get_connection();
-        $sql = "SELECT * FROM tasks WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$id]);
-
-        // Devolver la tarea o null si no se encuentra
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
-    public function editTaskById($id, $newTask)
+    // Este método recibe un ID y una nueva tarea para editar en la base de datos
+    private function editTaskById($id, $newTask)
     {
         try {
             // Obtén la conexión a la base de datos
             $pdo = $this->connection->get_connection();
-    
-            // Prepara la consulta SQL
+
+            // Prepara la consulta SQL para actualizar la tarea
             $sql = "UPDATE tasks SET task = ? WHERE id = ?";
             $stmt = $pdo->prepare($sql);
-    
+
             // Ejecuta la consulta con los nuevos datos de la tarea
             $stmt->execute([$newTask, $id]);
-    
+
             return true; // La actualización fue exitosa
         } catch (\PDOException $e) {
             // Maneja el error según tus necesidades
             return false; // La actualización falló
         }
     }
+
+    public function updateTaskStatus($id, $complete)
+{
+    try {
+        $pdo = $this->connection->get_connection();
+        $id=$_POST['id'];
+        $complete=(isset($_POST['complete']))?1:0;
+        $sql = "UPDATE tasks SET complete=? WHERE id=?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$complete, $id]);
+
+        return true; // Éxito
+    } catch (\PDOException $e) {
+        return false; // Fracaso
+    }
 }
+
+}
+
+?>
